@@ -6,8 +6,9 @@ Visualization tools for Cynthia, an SDD-based LTLf Synthesis system. This projec
 
 ## Tech Stack
 
-- **Languages**: C++17/20, Python 3.10+
-- **Build System**: CMake 3.10+
+- **Languages**: C++17/20, Python 3.10+, TypeScript 5+
+- **Frontend**: React 18+, Vite, React Flow, Tailwind CSS
+- **Build System**: CMake 3.10+, Vite
 - **Compilers**: GCC 8+, Clang 6+
 - **Parent Project**: Cynthia (cosy_from_cynthia)
 
@@ -147,6 +148,7 @@ Log learnings: `bd comment {ID} "LEARNED: [insight]"` — captured automatically
 ## Supervisors
 
 - cpp-supervisor (Ruby) - C++ development
+- react-supervisor (Luna) - React/TypeScript frontend development
 - merge-supervisor (Mira) - Git merge conflict resolution
 
 ## Current State
