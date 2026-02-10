@@ -62,7 +62,8 @@ npm run test:ui
 
 ## Usage
 
-1. **Upload a Log File**: Drag and drop a `.log` file or click "Browse Files"
+1. **Upload a Log File**: Drag and drop a `.log` or `.txt` file, or click "Browse Files"
+   - A sample log file is included in `examples/sample.txt`
 2. **View Dashboard**: See summary statistics and visualizations
 3. **Explore Timeline**: View execution events in chronological order
 4. **Analyze State Graph**: Visualize state transitions and relationships
