@@ -1,0 +1,25 @@
+[2026-02-10 09:45:07.117] [thread-1] [info] [main] Starting Cynthia synthesis
+[2026-02-10 09:45:07.118] [thread-1] [info] [cynthia] Formula: !(p0)
+[2026-02-10 09:45:07.119] [thread-1] [info] [cynthia] State 0
+[2026-02-10 09:45:07.120] [thread-1] [info] [cynthia] Checking zero-step realizability
+[2026-02-10 09:45:07.121] [thread-1] [info] [cynthia] Zero-step realizability check failed
+[2026-02-10 09:45:07.122] [thread-1] [info] [cynthia] State 1
+[2026-02-10 09:45:07.123] [thread-1] [info] [cynthia] Checking one-step realizability
+[2026-02-10 09:45:07.124] [thread-1] [info] [cynthia] one-step realizability check was successful
+[2026-02-10 09:45:07.125] [thread-1] [info] [cynthia] checking system move: p0
+[2026-02-10 09:45:07.126] [thread-1] [info] [cynthia] env move: !p0
+[2026-02-10 09:45:07.127] [thread-1] [info] [cynthia] Adding transition (1 OR node, 7, 10 AND node)
+[2026-02-10 09:45:07.128] [thread-1] [info] [cynthia] State 10
+[2026-02-10 09:45:07.129] [thread-1] [info] [cynthia] Checking one-step realizability
+[2026-02-10 09:45:07.130] [thread-1] [info] [cynthia] one-step realizability check was successful
+[2026-02-10 09:45:07.131] [thread-1] [info] [cynthia] checking system move: p0
+[2026-02-10 09:45:07.132] [thread-1] [info] [cynthia] env move: true
+[2026-02-10 09:45:07.133] [thread-1] [info] [cynthia] Adding transition (10 AND node, 13, 20 OR node)
+[2026-02-10 09:45:07.134] [thread-1] [info] [cynthia] State 20
+[2026-02-10 09:45:07.135] [thread-1] [info] [cynthia] Checking one-step realizability
+[2026-02-10 09:45:07.136] [thread-1] [info] [cynthia] one-step unrealizability check was successful
+[2026-02-10 09:45:07.137] [thread-1] [info] [cynthia] Loop detected for node 20, tagging the node
+[2026-02-10 09:45:07.138] [thread-1] [info] [cynthia] State 20 is failure
+[2026-02-10 09:45:07.139] [thread-1] [info] [cynthia] Explored states: 3
+[2026-02-10 09:45:07.140] [thread-1] [info] [cynthia] Overall time elapsed: 23ms
+[2026-02-10 09:45:07.141] [thread-1] [info] [main] Formula is unrealizable.
