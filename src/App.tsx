@@ -48,10 +48,10 @@ function App() {
   const handleDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     const file = e.dataTransfer.files[0]
-    if (file && file.name.endsWith('.log')) {
+    if (file && (file.name.endsWith('.log') || file.name.endsWith('.txt'))) {
       handleFileUpload(file)
     } else {
-      setError('Please upload a .log file')
+      setError('Please upload a .log or .txt file')
     }
   }, [handleFileUpload])
 
@@ -154,7 +154,7 @@ function App() {
                 <label className="inline-block">
                   <input
                     type="file"
-                    accept=".log"
+                    accept=".log,.txt"
                     onChange={handleFileInputChange}
                     className="hidden"
                   />
@@ -163,7 +163,7 @@ function App() {
                   </span>
                 </label>
                 <p className="text-xs text-muted-foreground">
-                  Supports Cynthia log files with .log extension
+                  Supports Cynthia log files with .log or .txt extension
                 </p>
               </div>
             </div>
