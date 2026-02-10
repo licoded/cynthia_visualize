@@ -1,0 +1,91 @@
+[2026-02-10 09:45:07.117] [cynthia] [info] [main] Parsing /Users/lic/files/dev/cpp/cosy_rewrite_2026_fromCynthia/cosy_from_cynthia/benchmarks/sm1000/bench1/f7.ltlf
+[2026-02-10 09:45:07.118] [cynthia] [info] [main] Apply no-empty semantics.
+[2026-02-10 09:45:07.118] [cynthia] [info] [main] Reading partition file /Users/lic/files/dev/cpp/cosy_rewrite_2026_fromCynthia/cosy_from_cynthia/benchmarks/sm1000/bench1/f7.part
+[2026-02-10 09:45:07.118] [cynthia] [info] [main] Starting synthesis
+[2026-02-10 09:45:07.119] [cynthia] [info] [cynthia] Check zero-step realizability
+[2026-02-10 09:45:07.119] [cynthia] [info] [cynthia] Check one-step realizability
+[2026-02-10 09:45:07.119] [cynthia] [info] [cynthia] Check one-step unrealizability
+[2026-02-10 09:45:07.119] [cynthia] [info] [cynthia] Building the root SDD node...
+[2026-02-10 09:45:07.119] [cynthia] [info] [cynthia] Starting first system move...
+[2026-02-10 09:45:07.119] [cynthia] [debug] [cynthia] 	State 112
+[2026-02-10 09:45:07.119] [cynthia] [debug] [cynthia] 	Processing 2 system node's children nodes
+[2026-02-10 09:45:07.119] [cynthia] [debug] [cynthia] 	system look-ahead: 111 is not a state node
+[2026-02-10 09:45:07.119] [cynthia] [debug] [cynthia] 	system look-ahead: 108 is not a state node
+[2026-02-10 09:45:07.119] [cynthia] [debug] [cynthia] 	checking system move: p1
+[2026-02-10 09:45:07.119] [cynthia] [debug] [cynthia] 		Processing 2 env node's children nodes
+[2026-02-10 09:45:07.119] [cynthia] [debug] [cynthia] 		Adding transition (111 AND node, 7, 176 OR node)
+[2026-02-10 09:45:07.119] [cynthia] [debug] [cynthia] 		env look-ahead: one-step realizability check was successful
+[2026-02-10 09:45:07.119] [cynthia] [debug] [cynthia] 		Adding transition (111 AND node, 8, 300 OR node)
+[2026-02-10 09:45:07.119] [cynthia] [debug] [cynthia] 		env look-ahead: next state 109 not discovered yet
+[2026-02-10 09:45:07.119] [cynthia] [debug] [cynthia] 		env move: !p0
+[2026-02-10 09:45:07.119] [cynthia] [debug] [cynthia] 			State 300
+[2026-02-10 09:45:07.119] [cynthia] [debug] [cynthia] 			Processing 4 system node's children nodes
+[2026-02-10 09:45:07.119] [cynthia] [debug] [cynthia] 			system look-ahead: 299 is not a state node
+[2026-02-10 09:45:07.119] [cynthia] [debug] [cynthia] 			system look-ahead: 296 is not a state node
+[2026-02-10 09:45:07.119] [cynthia] [debug] [cynthia] 			system look-ahead: 294 is not a state node
+[2026-02-10 09:45:07.119] [cynthia] [debug] [cynthia] 			system look-ahead: 282 is not a state node
+[2026-02-10 09:45:07.119] [cynthia] [debug] [cynthia] 			checking system move: (p1) & (p2)
+[2026-02-10 09:45:07.119] [cynthia] [debug] [cynthia] 				Processing 2 env node's children nodes
+[2026-02-10 09:45:07.119] [cynthia] [debug] [cynthia] 				Adding transition (299 AND node, 7, 176 OR node)
+[2026-02-10 09:45:07.119] [cynthia] [debug] [cynthia] 				env look-ahead: next state 176 already discovered, success, ignoring
+[2026-02-10 09:45:07.119] [cynthia] [debug] [cynthia] 				env look-ahead: one-step realizability check was successful
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 				Adding transition (299 AND node, 8, 300 OR node)
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 				env look-ahead: next state 297 not discovered yet
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 				env move: !p0
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 					State 300
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 					Loop detected for node 300, tagging the node
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 			checking system move: (p1) & (!p2)
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 				Processing 2 env node's children nodes
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 				Adding transition (296 AND node, 8, 359 OR node)
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 				env look-ahead: next state 295 not discovered yet
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 				Adding transition (296 AND node, 7, 31 OR node)
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 				env look-ahead: one-step realizability check was successful
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 				env move: !p0
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 					State 359
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 					Processing 2 system node's children nodes
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 					system look-ahead: 358 is not a state node
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 					system look-ahead: 356 is not a state node
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 					checking system move: p1
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 						Processing 2 env node's children nodes
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 						Adding transition (358 AND node, 8, 359 OR node)
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 						env look-ahead: next state 357 not discovered yet
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 						Adding transition (358 AND node, 7, 31 OR node)
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 						env look-ahead: next state 31 already discovered, success, ignoring
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 						env look-ahead: one-step realizability check was successful
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 						env move: !p0
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 							State 359
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 							Loop detected for node 359, tagging the node
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 					checking system move: !p1
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 						Processing 2 env node's children nodes
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 						Adding transition (356 AND node, 7, 31 OR node)
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 						env look-ahead: next state 31 already discovered, success, ignoring
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 						env look-ahead: one-step realizability check was successful
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 						Adding transition (356 AND node, 8, 33 OR node)
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 						env look-ahead: one-step unrealizability check was successful
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 					State 359 is failure
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 			checking system move: (p2) & (!p1)
+[2026-02-10 09:45:07.120] [cynthia] [debug] [cynthia] 				Processing 2 env node's children nodes
+[2026-02-10 09:45:07.121] [cynthia] [debug] [cynthia] 				Adding transition (294 AND node, 7, 176 OR node)
+[2026-02-10 09:45:07.121] [cynthia] [debug] [cynthia] 				env look-ahead: next state 176 already discovered, success, ignoring
+[2026-02-10 09:45:07.121] [cynthia] [debug] [cynthia] 				env look-ahead: one-step realizability check was successful
+[2026-02-10 09:45:07.121] [cynthia] [debug] [cynthia] 				Adding transition (294 AND node, 8, 33 OR node)
+[2026-02-10 09:45:07.121] [cynthia] [debug] [cynthia] 				env look-ahead: next state 33 already discovered, failure
+[2026-02-10 09:45:07.121] [cynthia] [debug] [cynthia] 			checking system move: (!p1) & (!p2)
+[2026-02-10 09:45:07.121] [cynthia] [debug] [cynthia] 				Processing 2 env node's children nodes
+[2026-02-10 09:45:07.121] [cynthia] [debug] [cynthia] 				Adding transition (282 AND node, 7, 31 OR node)
+[2026-02-10 09:45:07.121] [cynthia] [debug] [cynthia] 				env look-ahead: next state 31 already discovered, success, ignoring
+[2026-02-10 09:45:07.121] [cynthia] [debug] [cynthia] 				env look-ahead: one-step realizability check was successful
+[2026-02-10 09:45:07.121] [cynthia] [debug] [cynthia] 				Adding transition (282 AND node, 8, 33 OR node)
+[2026-02-10 09:45:07.121] [cynthia] [debug] [cynthia] 				env look-ahead: next state 33 already discovered, failure
+[2026-02-10 09:45:07.121] [cynthia] [debug] [cynthia] 			State 300 is failure
+[2026-02-10 09:45:07.121] [cynthia] [debug] [cynthia] 	checking system move: !p1
+[2026-02-10 09:45:07.121] [cynthia] [debug] [cynthia] 		Processing 2 env node's children nodes
+[2026-02-10 09:45:07.121] [cynthia] [debug] [cynthia] 		Adding transition (108 AND node, 7, 176 OR node)
+[2026-02-10 09:45:07.121] [cynthia] [debug] [cynthia] 		env look-ahead: next state 176 already discovered, success, ignoring
+[2026-02-10 09:45:07.121] [cynthia] [debug] [cynthia] 		env look-ahead: one-step realizability check was successful
+[2026-02-10 09:45:07.121] [cynthia] [debug] [cynthia] 		Adding transition (108 AND node, 8, 33 OR node)
+[2026-02-10 09:45:07.121] [cynthia] [debug] [cynthia] 		env look-ahead: next state 33 already discovered, failure
+[2026-02-10 09:45:07.121] [cynthia] [debug] [cynthia] 	State 112 is failure
+[2026-02-10 09:45:07.121] [cynthia] [info] [cynthia] Explored states: 3
+[2026-02-10 09:45:07.121] [cynthia] [info] [main] unrealizable.
+[2026-02-10 09:45:07.121] [cynthia] [info] [main] Overall time elapsed: 3.122875ms
