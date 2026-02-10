@@ -1,17 +1,89 @@
-import { memo, useState, useCallback, useRef, useEffect } from 'react'
-import type { LogEntry } from '../../parser/types'
+import { memo, useCallback, useRef, useMemo, useEffect, useState } from 'react'
+import { VariableSizeList as List } from 'react-window'
+import type { LogEntry, State } from '../../parser/types'
 import type { LogEntryListProps } from './types'
 import { LogEntryItem } from './LogEntryItem'
 import { getEntryState } from './utils'
 
 /**
- * Constants for virtualization
+ * Estimated base height for a log entry
  */
-const ITEM_HEIGHT = 80 // Approximate height of each log entry
-const BUFFER_SIZE = 5 // Number of items to render above/below viewport
+const ESTIMATED_ITEM_HEIGHT = 80
 
 /**
- * Log entry list component with virtualization for performance
+ * Calculate height for a log entry based on its content
+ */
+function calculateItemHeight(entry: LogEntry): number {
+  // Base height for padding and layout
+  let height = 60 // min-height with padding
+
+  // Add height for message content (approximate)
+  const messageLines = Math.ceil(entry.message.length / 100) // rough estimate
+  height += Math.min(messageLines * 20, 100) // cap at 100px for message
+
+  // Extra height if state is present
+  const stateInfo = entry.message.match(/State \d+/)
+  if (stateInfo) {
+    height += 24
+  }
+
+  return Math.max(height, ESTIMATED_ITEM_HEIGHT)
+}
+
+/**
+ * Inner component for react-window to render items
+ */
+interface RowProps {
+  index: number
+  style: React.CSSProperties
+  data: {
+    entries: LogEntry[]
+    states: Map<number, State>
+    onEntryClick?: (entry: LogEntry, state?: State) => void
+    itemSizeCache: Map<number, number>
+    setItemSize: (index: number, size: number) => void
+  }
+}
+
+const Row = memo(function Row({ index, style, data }: RowProps) {
+  const { entries, states, onEntryClick, setItemSize } = data
+  const entry = entries[index]
+  const state = getEntryState(entry, states)
+  const rowRef = useRef<HTMLDivElement>(null)
+
+  // Measure actual height after render
+  useEffect(() => {
+    if (rowRef.current) {
+      const height = rowRef.current.offsetHeight
+      setItemSize(index, height)
+    }
+  }, [index, setItemSize])
+
+  const handleEntryClick = useCallback(() => {
+    if (onEntryClick) {
+      onEntryClick(entry, state)
+    }
+  }, [entry, state, onEntryClick])
+
+  return (
+    <div
+      ref={rowRef}
+      style={style}
+      className="w-full"
+    >
+      <LogEntryItem
+        key={`${entry.lineNumber}-${index}`}
+        entry={entry}
+        state={state}
+        onClick={handleEntryClick}
+        isClickable={Boolean(onEntryClick)}
+      />
+    </div>
+  )
+})
+
+/**
+ * Log entry list component with virtualization using react-window
  */
 export const LogEntryList = memo(function LogEntryList({
   entries,
@@ -19,12 +91,15 @@ export const LogEntryList = memo(function LogEntryList({
   onEntryClick,
   maxEntries,
 }: LogEntryListProps) {
+  const listRef = useRef<List>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  const [scrollTop, setScrollTop] = useState(0)
+  const itemSizeCache = useRef<Map<number, number>>(new Map())
   const [containerHeight, setContainerHeight] = useState(600)
 
   // Limit entries if maxEntries is specified
-  const displayEntries = maxEntries ? entries.slice(0, maxEntries) : entries
+  const displayEntries = useMemo(() => {
+    return maxEntries ? entries.slice(0, maxEntries) : entries
+  }, [entries, maxEntries])
 
   // Update container height on resize
   useEffect(() => {
@@ -43,27 +118,46 @@ export const LogEntryList = memo(function LogEntryList({
     return () => resizeObserver.disconnect()
   }, [])
 
-  // Handle scroll for virtualization
-  const handleScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
-    setScrollTop(e.currentTarget.scrollTop)
+  // Initialize size cache with estimates
+  useMemo(() => {
+    const newCache = new Map<number, number>()
+    displayEntries.forEach((entry, index) => {
+      newCache.set(index, calculateItemHeight(entry))
+    })
+    itemSizeCache.current = newCache
+  }, [displayEntries])
+
+  // Reset list when entries change
+  useMemo(() => {
+    if (listRef.current) {
+      listRef.current.resetAfterIndex(0)
+    }
+  }, [displayEntries])
+
+  // Get item size - use cached value
+  const getItemSize = useCallback((index: number) => {
+    return itemSizeCache.current.get(index) ?? ESTIMATED_ITEM_HEIGHT
   }, [])
 
-  // Calculate visible range for virtualization
-  const startIndex = Math.max(0, Math.floor(scrollTop / ITEM_HEIGHT) - BUFFER_SIZE)
-  const endIndex = Math.min(
-    displayEntries.length,
-    Math.ceil((scrollTop + containerHeight) / ITEM_HEIGHT) + BUFFER_SIZE
-  )
+  // Set the actual measured size
+  const setItemSize = useCallback((index: number, size: number) => {
+    if (itemSizeCache.current.get(index) !== size) {
+      itemSizeCache.current.set(index, size)
+      // Notify list that size changed
+      if (listRef.current) {
+        listRef.current.resetAfterIndex(index, false)
+      }
+    }
+  }, [])
 
-  const visibleEntries = displayEntries.slice(startIndex, endIndex)
-  const totalHeight = displayEntries.length * ITEM_HEIGHT
-  const offsetY = startIndex * ITEM_HEIGHT
-
-  // Handle entry click with state lookup
-  const handleEntryClick = useCallback((entry: LogEntry) => {
-    const state = getEntryState(entry, states)
-    onEntryClick?.(entry, state)
-  }, [states, onEntryClick])
+  // Prepare data for row renderer
+  const rowData = useMemo(() => ({
+    entries: displayEntries,
+    states,
+    onEntryClick,
+    itemSizeCache: itemSizeCache.current,
+    setItemSize,
+  }), [displayEntries, states, onEntryClick, setItemSize])
 
   if (displayEntries.length === 0) {
     return (
@@ -74,39 +168,20 @@ export const LogEntryList = memo(function LogEntryList({
   }
 
   return (
-    <div
-      ref={containerRef}
-      className="h-full overflow-auto"
-      onScroll={handleScroll}
-      role="list"
-      aria-label="Log entries"
-    >
-      {/* Virtual spacer for items above viewport */}
-      <div style={{ height: offsetY }} aria-hidden="true" />
-
-      {/* Visible items */}
-      <div style={{ height: totalHeight - offsetY }}>
-        {visibleEntries.map((entry) => {
-          const state = getEntryState(entry, states)
-          const globalIndex = displayEntries.indexOf(entry)
-
-          return (
-            <LogEntryItem
-              key={`${entry.lineNumber}-${globalIndex}`}
-              entry={entry}
-              state={state}
-              onClick={() => handleEntryClick(entry)}
-              isClickable={Boolean(onEntryClick)}
-            />
-          )
-        })}
+    <div ref={containerRef} className="h-full flex flex-col">
+      {/* Virtualized list */}
+      <div role="list" aria-label="Log entries">
+        <List
+          ref={listRef}
+          height={containerHeight}
+          itemCount={displayEntries.length}
+          itemSize={getItemSize}
+          width="100%"
+          itemData={rowData}
+        >
+          {Row}
+        </List>
       </div>
-
-      {/* Virtual spacer for items below viewport */}
-      <div
-        style={{ height: Math.max(0, totalHeight - endIndex * ITEM_HEIGHT) }}
-        aria-hidden="true"
-      />
 
       {/* Entry count indicator */}
       {maxEntries && displayEntries.length < entries.length && (
